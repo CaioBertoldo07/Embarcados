@@ -17,17 +17,6 @@ class MockDHT:
         humidity = round(random.uniform(40, 70), 2)
         return temperature, humidity
 
-# Mock do LCD
-# class MockLCD:
-#     def clear(self):
-#         print("[LCD] LIMPO")
-    
-#     def setCursor(self, x, y):
-#         print(f'[LCD] Cursor em {x}, {y}')
-    
-#     def print(self, message):
-#         print(f'[LCD] {message}')
-
 # Mock do Servo
 class MockServo:
     def write(self, angle):
@@ -72,12 +61,12 @@ topicLight = "test/bertoldo/light"
 topicAir = "test/bertoldo/air"
 
 # Callback do MQTT
-def onConnect(client, userdata, flags, rc):
+def onConnect(client):
     # print(f'[MQTT] Conectado com código: {rc}')
     client.subscribe(topicLight)
     client.subscribe(topicAir)
 
-def onMessage(client, userdata, msg):
+def onMessage(msg):
     # print(f'[MQTT] Mensagem recebida em {msg.topic}: {msg.payload.decode()}')
     global lastMessage
     command = msg.payload.decode()
